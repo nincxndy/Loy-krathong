@@ -116,7 +116,9 @@ legend{font-weight:500;font-size:14px;margin-bottom:8px}
 
 #sh .shb{position:relative;display:grid;justify-items:center;gap:16px;padding:20px 18px calc(20px + var(--safe-b));text-align:center}
 #sh .x{position:absolute;top:10px;right:10px}
-#cv{display:block;height:min(52dvh,520px);width:auto;max-width:100%;aspect-ratio:9/16;border-radius:14px;box-shadow:0 8px 30px #0006}
+#cv,#cvImg{display:block;height:min(52dvh,520px);width:auto;max-width:100%;aspect-ratio:9/16;border-radius:14px;box-shadow:0 8px 30px #0006}
+#cv[hidden],#cvImg[hidden]{display:none}
+#cvImg{-webkit-touch-callout:default;-webkit-user-select:auto;user-select:auto}
 .shr{display:grid;gap:10px;width:100%;max-width:340px}
 .shr p{font-size:14px;color:var(--muted)}
 
@@ -133,7 +135,7 @@ legend{font-weight:500;font-size:14px;margin-bottom:8px}
 }
 @media (min-width:720px),(orientation:landscape) and (max-height:560px){
   #sh .shb{grid-template-columns:auto minmax(220px,300px);justify-content:center;align-items:center;gap:28px;padding:28px}
-  #cv{height:min(78dvh,620px)}
+  #cv,#cvImg{height:min(78dvh,620px)}
   .shr{text-align:left}
 }
 @media (orientation:landscape) and (max-height:520px){
@@ -210,9 +212,10 @@ legend{font-weight:500;font-size:14px;margin-bottom:8px}
   <div class="shb">
     <button type="button" class="x" id="shX" aria-label="ปิด">×</button>
     <canvas id="cv" width="540" height="960" role="img" aria-label="การ์ดกระทงของคุณ"></canvas>
+    <img id="cvImg" alt="การ์ดกระทงของคุณ" hidden>
     <div class="shr">
       <h2 id="shT">กระทงของคุณลอยแล้ว</h2>
-      <p>บันทึกการ์ดนี้หรือแชร์ให้เพื่อนได้เลย</p>
+      <p id="shMsg">บันทึกการ์ดนี้หรือแชร์ให้เพื่อนได้เลย</p>
       <button type="button" class="btn pri" id="share">แชร์ IG Story / Facebook</button>
       <button type="button" class="btn ghost" id="dl">ดาวน์โหลดรูป</button>
     </div>
@@ -390,13 +393,38 @@ async function showShare(k){
   c.fillStyle='#f7eed999';c.font='400 15px "IBM Plex Sans Thai",sans-serif';c.fillText('Loykrathong dev:_nincandy',W/2,930);
 }
 const blob=()=>new Promise(r=>$('#cv').toBlob(r,'image/png'));
-$('#dl').onclick=async()=>{const a=document.createElement('a');a.href=URL.createObjectURL(await blob());a.download='loy-krathong.png';a.click();};
+const inApp=/Instagram|FBAN|FBAV|FB_IAB|Line\//i.test(navigator.userAgent);
+
+/* ใน IG/FB/Line ปุ่มดาวน์โหลดและ share ไฟล์ใช้ไม่ได้ → สลับเป็น <img> ให้กดค้างบันทึก */
+function showImg(){
+  const im=$('#cvImg');
+  im.src=$('#cv').toDataURL('image/png');
+  $('#cv').hidden=true;
+  im.hidden=false;
+  $('#shMsg').textContent='กดค้างที่รูปแล้วเลือก "บันทึกรูปภาพ" หรือเปิดในเบราว์เซอร์ (เมนู ⋯) เพื่อดาวน์โหลด';
+}
+function showCanvas(){
+  $('#cvImg').hidden=true;
+  $('#cv').hidden=false;
+  $('#shMsg').textContent='บันทึกการ์ดนี้หรือแชร์ให้เพื่อนได้เลย';
+}
+
+$('#dl').onclick=async()=>{
+  if(inApp){showImg();return;}
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(await blob());
+  a.download='loy-krathong.png';
+  a.click();
+};
 $('#share').onclick=async()=>{
+  if(inApp){showImg();return;}
   const f=new File([await blob()],'loy-krathong.png',{type:'image/png'});
-  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Loy Krathong'});}catch(e){}}
-  else $('#dl').click();
+  if(navigator.canShare&&navigator.canShare({files:[f]})){
+    try{await navigator.share({files:[f],title:'Loy Krathong'});}catch(e){}
+  } else $('#dl').click();
 };
 $('#shX').onclick=()=>sh.close();
+sh.addEventListener('close',showCanvas);
 sh.addEventListener('click',e=>{if(e.target===sh)sh.close();});
 </script>
 </body>
