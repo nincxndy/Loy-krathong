@@ -50,6 +50,7 @@ button,input,textarea{font:inherit;color:inherit}
 .k.new svg{animation:pop 1.6s ease-out,bob 3s 1.6s ease-in-out infinite}
 .k.mine small{color:var(--amber);font-weight:600}
 .k.on svg{filter:drop-shadow(0 0 14px #fff)}
+.k.grp small::before{content:"👥 "}
 .k small{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:-2px;max-width:96px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;line-height:1.3;color:#e9f3ee;text-shadow:0 1px 3px #000}
 .k:focus-visible{outline-offset:0;border-radius:10px}
 @keyframes dr{to{transform:translateX(20px)}}
@@ -60,14 +61,16 @@ button,input,textarea{font:inherit;color:inherit}
 #bar{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:calc(12px + var(--safe-t)) calc(16px + var(--safe-r)) 0 calc(16px + var(--safe-l));pointer-events:none}
 #bar h1{font:700 clamp(22px,4.5vw,32px)/1.2 var(--serif);text-shadow:0 2px 12px #000a}
 #cnt{padding:6px 12px;border-radius:99px;background:#10103a99;border:1px solid #f7eed933;font-size:13px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap}
-#dock{position:fixed;left:0;right:0;bottom:0;z-index:4;display:flex;justify-content:center;padding:16px calc(16px + var(--safe-r)) calc(16px + var(--safe-b)) calc(16px + var(--safe-l));pointer-events:none}
+#dock{position:fixed;left:0;right:0;bottom:0;z-index:4;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;padding:16px calc(16px + var(--safe-r)) calc(16px + var(--safe-b)) calc(16px + var(--safe-l));pointer-events:none}
 #dock .btn{pointer-events:auto}
 .btn{min-height:48px;padding:0 26px;border-radius:99px;border:2px solid transparent;font:600 16px var(--sans);cursor:pointer;transition:transform .15s,background .15s}
 .btn:active{transform:scale(.97)}
 .btn[disabled]{opacity:.6;cursor:wait}
 .pri{background:var(--amber);color:#2a1a05;box-shadow:0 0 0 6px #f5b83d33,0 8px 24px #0008}
 .pri:hover{background:#ffc94f}
-#open{min-height:56px;padding:0 36px;font-size:18px}
+#open,#open2{min-height:56px;padding:0 26px;font-size:18px}
+.sec{background:var(--paper);color:#12353a;box-shadow:0 8px 24px #0008}
+.sec:hover{background:#fff}
 .ghost{background:transparent;color:var(--text);border-color:#12353a55}
 .ghost:hover{background:#12353a14}
 
@@ -122,6 +125,27 @@ legend{font-weight:500;font-size:14px;margin-bottom:8px}
 .shr{display:grid;gap:10px;width:100%;max-width:340px}
 .shr p{font-size:14px;color:var(--muted)}
 
+/* ---------- กระทงร่วม ---------- */
+.rv{display:grid;gap:12px;padding:4px 18px 20px}
+.rv[hidden]{display:none}
+.hint{font-size:13px;line-height:1.5;color:var(--muted)}
+.lnk{min-height:44px;border:0;background:none;color:#0b6a6a;text-decoration:underline;font-size:14px;cursor:pointer}
+#jc{text-transform:uppercase;letter-spacing:.14em}
+.rtop{display:flex;align-items:center;gap:14px}
+.rk{flex:none;width:72px;padding:6px;border-radius:16px;background:linear-gradient(#38367e,#1c1c4e)}
+.rk svg{display:block;width:100%;height:auto}
+.code{flex:1;display:grid;gap:2px;padding:10px 14px;border-radius:14px;background:var(--paper2);border:2px dashed #12353a33}
+.code b{font:700 26px/1.2 var(--serif);letter-spacing:.16em;color:#0b6a6a}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row .btn{flex:1}
+.sm{min-height:44px;padding:0 16px;font-size:14px}
+.wl{list-style:none;display:grid;gap:8px;max-height:28vh;overflow:auto}
+.wl li{padding:10px 12px;border-radius:12px;background:var(--paper2);border:2px solid transparent;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+.wl li b{display:block;font-weight:600}
+.wl li.me{border-color:#0b6a6a;background:#e4f1df}
+.err.okk{color:#0b6a6a}
+@media (min-width:720px){#rm{width:min(520px,calc(100vw - 48px));margin:auto;border-radius:28px}}
+
 @media (min-width:480px){.opt small{display:block}}
 @media (min-width:720px){
   dialog{margin:auto;width:min(860px,calc(100vw - 48px));border-radius:28px;max-height:90dvh}
@@ -140,7 +164,7 @@ legend{font-weight:500;font-size:14px;margin-bottom:8px}
 }
 @media (orientation:landscape) and (max-height:520px){
   :root{--h:50%}
-  #open{min-height:46px;font-size:16px;padding:0 28px}
+  #open,#open2{min-height:46px;font-size:16px;padding:0 24px}
   #tip{bottom:calc(76px + var(--safe-b))}
   dialog{max-height:96dvh}
 }
@@ -174,7 +198,7 @@ legend{font-weight:500;font-size:14px;margin-bottom:8px}
   <button type="button" id="tipX" aria-label="ปิด">×</button>
 </div>
 
-<div id="dock"><button type="button" class="btn pri" id="open">ลอยกระทง</button></div>
+<div id="dock"><button type="button" class="btn pri" id="open">ลอยกระทง</button><button type="button" class="btn sec" id="open2">ลอยด้วยกัน</button></div>
 
 <dialog id="mk" aria-labelledby="mkT">
   <form id="f" novalidate>
@@ -222,9 +246,75 @@ legend{font-weight:500;font-size:14px;margin-bottom:8px}
   </div>
 </dialog>
 
+<dialog id="rm" aria-labelledby="rmT">
+  <header class="dh">
+    <h2 id="rmT">ลอยกระทงด้วยกัน</h2>
+    <button type="button" class="x" id="rmX" aria-label="ปิด">×</button>
+  </header>
+
+  <form id="vJ" class="rv" novalidate>
+    <p class="hint">ใส่โค้ดและรหัสผ่านที่เพื่อนส่งให้ เพื่อเขียนคำอธิษฐานลงบนกระทงใบเดียวกัน</p>
+    <label class="fld">โค้ดกระทง
+      <input id="jc" maxlength="9" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="เช่น K7M2QX">
+    </label>
+    <label class="fld">รหัสผ่าน
+      <input id="jp" type="password" maxlength="40" autocomplete="off">
+    </label>
+    <p class="err" id="jerr" role="alert"></p>
+    <button type="submit" class="btn pri" id="jgo">เข้าร่วม</button>
+    <button type="button" class="lnk" id="toN">สร้างกระทงร่วมใหม่</button>
+  </form>
+
+  <form id="vN" class="rv" hidden novalidate>
+    <fieldset>
+      <legend>เลือกกระทง</legend>
+      <div class="opts" id="nopts"></div>
+    </fieldset>
+    <label class="fld">ชื่อกระทง<em>ไม่เกิน 20 ตัว</em>
+      <input id="nt" maxlength="20" placeholder="เช่น ครอบครัวสุขใจ">
+    </label>
+    <label class="fld">ตั้งรหัสผ่าน<em>อย่างน้อย 6 ตัว</em>
+      <input id="np" type="password" maxlength="40" autocomplete="new-password">
+    </label>
+    <p class="hint">ระบบจะสุ่มโค้ดให้หลังสร้าง ส่งโค้ด/ลิงก์ให้เพื่อน แล้วบอกรหัสผ่านแยกต่างหาก รหัสผ่านกู้คืนไม่ได้ จดไว้ด้วย</p>
+    <p class="err" id="nerr" role="alert"></p>
+    <button type="submit" class="btn pri" id="ngo">สร้างและลอยกระทง</button>
+    <button type="button" class="lnk" id="toJ">มีโค้ดแล้ว? เข้าร่วม</button>
+  </form>
+
+  <section id="vR" class="rv" hidden>
+    <div class="rtop">
+      <div class="rk" id="rt" aria-hidden="true"></div>
+      <div class="code"><span class="hint">โค้ดกระทง</span><b id="rcode"></b></div>
+    </div>
+    <div class="row">
+      <button type="button" class="btn ghost sm" id="cpl">คัดลอกลิงก์</button>
+      <button type="button" class="btn ghost sm" id="cpc">คัดลอกโค้ด</button>
+    </div>
+    <p class="hint">ทุกคนที่แตะกระทงหรือเปิดลิงก์นี้อ่านคำอธิษฐานได้ แต่ต้องมีรหัสผ่านถึงจะเขียนได้ (ลิงก์ไม่มีรหัสผ่าน ให้บอกเพื่อนแยกต่างหาก)</p>
+    <p class="hint" id="wc" role="status"></p>
+    <ul class="wl" id="wl"></ul>
+    <button type="button" class="btn pri" id="rjoin" hidden>ใส่รหัสผ่านเพื่อเขียนคำอธิษฐาน</button>
+    <form id="rw" novalidate>
+      <label class="fld">ชื่อของคุณ<em id="c3">0/20</em>
+        <input id="wn" maxlength="20" autocomplete="nickname" placeholder="ชื่อหรือชื่อเล่น">
+      </label>
+      <label class="fld">คำอธิษฐาน<em id="c4">0/120</em>
+        <textarea id="ww" rows="3" maxlength="120" placeholder="ขอให้..."></textarea>
+      </label>
+      <p class="err" id="werr" role="alert"></p>
+      <button type="submit" class="btn pri" id="wgo" style="width:100%">ใส่คำอธิษฐาน</button>
+    </form>
+    <div class="row">
+      <button type="button" class="btn ghost sm" id="rcard">บันทึกการ์ด</button>
+      <button type="button" class="btn ghost sm" id="rleave">ออกจากกระทงนี้</button>
+    </div>
+  </section>
+</dialog>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, onSnapshot, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, writeBatch, onSnapshot, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD2XppnhpwrtmBfcrz6uKtET1WsPi-F-XA",
@@ -261,7 +351,7 @@ for(let i=0;i<(small?40:70);i++){const e=document.createElement('div');e.classNa
   e.style.cssText=`left:${R(0,100)}%;top:${R(0,70)}%;opacity:${R(.3,1)};animation-delay:${R(0,3)}s;transform:scale(${R(.5,1.3)})`;sky.prepend(e);}
 
 /* ---------- กระทงบนผืนน้ำ ---------- */
-const seen=new Set();let first=true,tipT,tipEl,tipK;
+const seen=new Set();let first=true,tipT,tipEl,tipK,tipId;
 let mine=new Set();
 try{mine=new Set(JSON.parse(localStorage.getItem('krathong-mine')||'[]'));}catch(e){}
 const saveMine=()=>{try{localStorage.setItem('krathong-mine',JSON.stringify([...mine].slice(-30)));}catch(e){}};
@@ -270,13 +360,13 @@ function cnt(){
   $('#cnt').textContent=n?`กระทง ${n} ดวงบนผืนน้ำ`:'ไม่มีกระทง';
 }
 function addK(k,fresh,id){
-  const e=document.createElement('button');e.type='button';e.className='k'+(fresh?' new':'');
+  const e=document.createElement('button');e.type='button';e.className='k'+(fresh?' new':'')+(k.shared?' grp':'');
   const x=Math.min(Math.max(+k.x||50,8),90),y=6+Math.min(Math.max(+k.y||30,0),75)*.72;
   e.style.cssText=`left:${x}%;top:${y}%;--d:${-R(0,10)}s;animation-duration:${R(8,14)}s`;
-  e.setAttribute('aria-label',`กระทงของ ${k.name}`);
+  e.setAttribute('aria-label',`${k.shared?'กระทงร่วม':'กระทงของ'} ${k.name}`);
   e.innerHTML=ks(k.t,42);
   const s=document.createElement('small');s.textContent=k.name;e.append(s);
-  e._k=k;e._own=mine.has(id);if(e._own)e.classList.add('mine');
+  e._k=k;e._id=id;e._own=mine.has(id);if(e._own)e.classList.add('mine');
   $('#kr').append(e);cnt();
 }
 cnt();
@@ -292,12 +382,15 @@ onSnapshot(query(col,orderBy('createdAt','desc'),limit(150)),snap=>{
 function hideTip(){$('#tip').hidden=true;clearTimeout(tipT);if(tipEl)tipEl.classList.remove('on');tipEl=null;}
 $('#kr').onclick=e=>{
   const b=e.target.closest('.k');if(!b)return;
-  hideTip();tipEl=b;tipK=b._k;b.classList.add('on');
-  $('#tipN').textContent=b._k.name+(b._own?' · กระทงของคุณ':'');$('#tipW').textContent=b._k.wish||'';
+  hideTip();tipEl=b;tipK=b._k;tipId=b._id;b.classList.add('on');
+  const g=!!b._k.shared;
+  $('#tipN').textContent=(g?'':'')+b._k.name+(b._own?' · กระทงของคุณ':'');
+  $('#tipW').textContent=g?'กระทงร่วม · แตะเพื่ออ่านคำอธิษฐานของทุกคน':(b._k.wish||'');
+  $('#tipS').textContent=g?'อ่านคำอธิษฐาน':'บันทึกรูปการ์ด';
   $('#tip').hidden=false;tipT=setTimeout(hideTip,10000);
 };
 $('#tipX').onclick=hideTip;
-$('#tipS').onclick=()=>{const k=tipK;hideTip();if(k)showShare(k);};
+$('#tipS').onclick=()=>{const k=tipK,id=tipId;hideTip();if(!k)return;if(k.shared)openRoom(id);else showShare(k);};
 
 /* ---------- สร้างกระทง ---------- */
 const st={t:1,n:'',w:''},mk=$('#mk'),sh=$('#sh');
@@ -331,7 +424,7 @@ $('#f').onsubmit=async e=>{
   const ref=doc(col);mine.add(ref.id);saveMine();
   try{await setDoc(ref,{...k,createdAt:serverTimestamp()});}
   catch(x){console.error(x);mine.delete(ref.id);saveMine();err('ลอยกระทงไม่สำเร็จ ตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง');go.disabled=false;go.textContent='ลอยกระทง';return;}
-  go.disabled=false;go.textContent='Loykrathong';
+  go.disabled=false;go.textContent='ลอยกระทง';
   mk.close();st.n='';st.w='';
   setTimeout(()=>showShare(k),2400);
 };
@@ -426,6 +519,205 @@ $('#share').onclick=async()=>{
 $('#shX').onclick=()=>sh.close();
 sh.addEventListener('close',showCanvas);
 sh.addEventListener('click',e=>{if(e.target===sh)sh.close();});
+
+/* ---------- ลอยด้วยกัน (กระทงร่วม) ----------
+   โครงสร้าง Firestore:
+   krathongs/{CODE}                         หน้าสาธารณะ (ชื่อกระทง, ชนิด, ตำแหน่ง)
+   krathongs/{CODE}/private/key             {h} แฮชรหัสผ่าน (ไม่มีใครอ่านได้ ใช้ในกฎเท่านั้น)
+   krathongs/{CODE}/wishes/{id}             คำอธิษฐาน — ทุกคนอ่านได้ เขียนได้เฉพาะคนรู้รหัสผ่าน (มี proof p ตรวจในกฎ)
+   krathongs/{CODE}/vault/{h}/wishes/{id}   ที่เก็บแบบเก่า ใช้ตรวจรหัสผ่าน/ย้ายข้อมูลเก่าเท่านั้น */
+const rm=$('#rm'),CH='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const genCode=()=>{const a=new Uint32Array(6);crypto.getRandomValues(a);return Array.from(a,v=>CH[v%32]).join('');};
+const normCode=s=>(s||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+const roomUrl=c=>location.origin+location.pathname+'?k='+c;
+let rooms={};try{rooms=JSON.parse(localStorage.getItem('krathong-rooms')||'{}');}catch(e){}
+const saveRooms=()=>{try{localStorage.setItem('krathong-rooms',JSON.stringify(rooms));}catch(e){}};
+let cur=null,nt=1;
+const rerr=(id,m)=>{$(id).textContent=m||'';};
+const wmsg=(m,ok)=>{const e=$('#werr');e.textContent=m||'';e.classList.toggle('okk',!!ok);};
+
+async function keyOf(code,pw){
+  if(!(window.crypto&&crypto.subtle))throw Object.assign(new Error('nocrypto'),{code:'nocrypto'});
+  const enc=new TextEncoder();
+  const base=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveBits']);
+  const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt:enc.encode('loykrathong:'+code),iterations:100000,hash:'SHA-256'},base,256);
+  return Array.from(new Uint8Array(bits),b=>b.toString(16).padStart(2,'0')).join('');
+}
+/* proof = sha256(h:id:name:wish) ผูกกับเนื้อหา คนไม่รู้รหัสผ่านสร้างเองไม่ได้ และเอาไปใช้ซ้ำกับข้อความอื่นไม่ได้ */
+async function proofOf(h,id,name,wish){
+  if(!(window.crypto&&crypto.subtle))throw Object.assign(new Error('nocrypto'),{code:'nocrypto'});
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(h+':'+id+':'+name+':'+wish));
+  return Array.from(new Uint8Array(b),x=>x.toString(16).padStart(2,'0')).join('');
+}
+function errMsg(x){
+  if(x&&x.code==='not-found')return 'ไม่พบกระทงร่วมโค้ดนี้';
+  if(x&&x.code==='permission-denied')return 'รหัสผ่านไม่ถูกต้อง';
+  if(x&&x.code==='nocrypto')return 'เบราว์เซอร์นี้ไม่รองรับ ลองเปิดผ่าน https';
+  console.error(x);return 'เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง';
+}
+function view(v){
+  ['vJ','vN','vR'].forEach(i=>$('#'+i).hidden=(i!==v));
+  $('#rmT').textContent=v==='vR'&&cur?cur.title:v==='vN'?'สร้างกระทงร่วม':'ลอยกระทงด้วยกัน';
+}
+function leave(){if(cur&&cur.unsub)cur.unsub();cur=null;}
+
+$('#nopts').innerHTML=T.map((x,i)=>`<label class="opt"><input type="radio" name="kt2" value="${i}" ${i==nt?'checked':''}>${ks(i,56)}<b>${x.n}</b><small>${x.d}</small></label>`).join('');
+$('#nopts').onchange=e=>{nt=+e.target.value;};
+$('#wn').oninput=e=>{$('#c3').textContent=e.target.value.length+'/20';wmsg();};
+$('#ww').oninput=e=>{$('#c4').textContent=e.target.value.length+'/120';wmsg();};
+
+function drawWishes(c,s){
+  const ul=$('#wl'),my=(rooms[c.code]||{}).w;
+  ul.textContent='';c.n=s.size;c.has=false;c.ids=new Set();
+  s.forEach(d=>{
+    const w=d.data(),li=document.createElement('li'),b=document.createElement('b'),p=document.createElement('span');
+    b.textContent=w.name;p.textContent=w.wish;li.append(b,p);
+    if(c.h&&d.id===my){
+      li.className='me';c.has=true;c.txt=w.wish;
+      if(!c.filled){c.filled=true;$('#wn').value=w.name;$('#ww').value=w.wish;$('#c3').textContent=w.name.length+'/20';$('#c4').textContent=w.wish.length+'/120';}
+    }
+    ul.append(li);c.ids.add(d.id);
+  });
+  $('#wc').textContent=c.n?`คำอธิษฐาน ${c.n} ข้อบนกระทงใบนี้`:'ยังไม่มีคำอธิษฐาน ลองเขียนเป็นคนแรก';
+  $('#wgo').textContent=c.has?'แก้ไขคำอธิษฐานของฉัน':'ใส่คำอธิษฐาน';
+}
+
+async function enterRoom(code,h){
+  leave();
+  const m=await getDoc(doc(db,'krathongs',code));
+  if(!m.exists()||!m.data().shared)throw Object.assign(new Error('nf'),{code:'not-found'});
+  /* มีรหัสผ่าน: ตรวจด้วยที่เก็บแบบเก่า (รหัสผิดจะ permission-denied) และได้คำอธิษฐานเก่ามาย้ายด้วย */
+  let legacy=null;
+  if(h)legacy=await getDocs(collection(db,'krathongs',code,'vault',h,'wishes'));
+  const d=m.data();
+  const c={code,h:h||null,title:d.name,t:+d.t||0,has:false,filled:false,n:0,txt:'',ids:new Set()};
+  const q=query(collection(db,'krathongs',code,'wishes'),orderBy('ts'));
+  $('#wn').value='';$('#ww').value='';$('#c3').textContent='0/20';$('#c4').textContent='0/120';wmsg();
+  await new Promise((res,rej)=>{
+    let ok=false;
+    c.unsub=onSnapshot(q,s=>{drawWishes(c,s);if(!ok){ok=true;res();}},e=>{if(!ok){c.unsub();rej(e);}else console.error(e);});
+  });
+  cur=c;
+  if(h){
+    rooms[code]=Object.assign(rooms[code]||{},{h});saveRooms();
+    mine.add(code);saveMine();
+    document.querySelectorAll('.k').forEach(e=>{if(e._id===code){e._own=true;e.classList.add('mine');}});
+    migrate(c,legacy);
+  }
+  $('#rw').hidden=!c.h;$('#rjoin').hidden=!!c.h;$('#rleave').hidden=!c.h;
+  $('#rt').innerHTML=ks(c.t,72);$('#rcode').textContent=code;
+  view('vR');
+}
+/* ย้ายคำอธิษฐานที่เคยเก็บแบบเก่า (ต้องใส่รหัสผ่านถึงอ่านได้) มาไว้ที่ใหม่ที่ทุกคนอ่านได้ */
+async function migrate(c,legacy){
+  try{
+    for(const d of legacy.docs){
+      if(c.ids.has(d.id))continue;
+      const w=d.data();
+      await setDoc(doc(db,'krathongs',c.code,'wishes',d.id),{name:w.name,wish:w.wish,ts:w.ts,p:await proofOf(c.h,d.id,w.name,w.wish)});
+    }
+  }catch(e){console.warn('migrate',e);}
+}
+
+async function openRoom(code){
+  hideTip();leave();code=normCode(code);
+  $('#jc').value=code;$('#jp').value='';rerr('#jerr');rerr('#nerr');
+  view('vJ');if(!rm.open)rm.showModal();
+  if(code){
+    const h=rooms[code]&&rooms[code].h;
+    try{await enterRoom(code,h||null);return;}  /* ไม่มีรหัสผ่าน → เปิดแบบอ่านอย่างเดียว */
+    catch(x){
+      if(h&&x.code==='permission-denied'){
+        rooms[code]={w:rooms[code].w};saveRooms();
+        try{await enterRoom(code,null);return;}catch(y){x=y;}
+      }
+      rerr('#jerr',errMsg(x));
+    }
+  }
+  (code?$('#jp'):$('#jc')).focus();
+}
+
+$('#open2').onclick=()=>openRoom('');
+$('#rmX').onclick=()=>rm.close();
+rm.addEventListener('close',leave);
+rm.addEventListener('click',e=>{if(e.target===rm)rm.close();});
+$('#toN').onclick=()=>{rerr('#nerr');view('vN');$('#nt').focus();};
+$('#toJ').onclick=()=>{rerr('#jerr');view('vJ');$('#jc').focus();};
+
+$('#vJ').onsubmit=async e=>{
+  e.preventDefault();
+  const code=normCode($('#jc').value),pw=$('#jp').value;
+  if(code.length<4){rerr('#jerr','กรอกโค้ดกระทง');$('#jc').focus();return;}
+  if(!pw){rerr('#jerr','กรอกรหัสผ่าน');$('#jp').focus();return;}
+  const b=$('#jgo');b.disabled=true;b.textContent='กำลังตรวจสอบ…';rerr('#jerr');
+  try{await enterRoom(code,await keyOf(code,pw));}
+  catch(x){rerr('#jerr',errMsg(x));}
+  b.disabled=false;b.textContent='เข้าร่วม';
+};
+
+$('#vN').onsubmit=async e=>{
+  e.preventDefault();
+  const title=$('#nt').value.trim(),pw=$('#np').value;
+  if(!title){rerr('#nerr','ตั้งชื่อกระทงก่อน');$('#nt').focus();return;}
+  if(pw.length<6){rerr('#nerr','รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร');$('#np').focus();return;}
+  const b=$('#ngo');b.disabled=true;b.textContent='กำลังสร้าง…';rerr('#nerr');
+  try{
+    let code,h;
+    for(let i=0;;i++){
+      code=genCode();h=await keyOf(code,pw);
+      const wb=writeBatch(db);
+      wb.set(doc(db,'krathongs',code),{t:nt,name:title,wish:'',shared:true,x:R(10,84),y:R(10,70),createdAt:serverTimestamp()});
+      wb.set(doc(db,'krathongs',code,'private','key'),{h});
+      mine.add(code);saveMine();
+      try{await wb.commit();break;}
+      catch(x){mine.delete(code);saveMine();if(x.code!=='permission-denied'||i>=2)throw x;}
+    }
+    rooms[code]={h};saveRooms();
+    $('#np').value='';$('#nt').value='';
+    await enterRoom(code,h);
+  }catch(x){rerr('#nerr',errMsg(x));}
+  b.disabled=false;b.textContent='สร้างและลอยกระทง';
+};
+
+$('#rw').onsubmit=async e=>{
+  e.preventDefault();
+  if(!cur||!cur.h)return;
+  const n=$('#wn').value.trim(),w=$('#ww').value.trim();
+  if(!n){wmsg('กรอกชื่อก่อน');$('#wn').focus();return;}
+  if(!w){wmsg('เขียนคำอธิษฐานก่อน');$('#ww').focus();return;}
+  const c=cur,b=$('#wgo');b.disabled=true;wmsg();
+  const ro=rooms[c.code]||(rooms[c.code]={h:c.h});
+  const wc=collection(db,'krathongs',c.code,'wishes');
+  const id=ro.w||doc(wc).id;
+  try{
+    const p=await proofOf(c.h,id,n,w);
+    await setDoc(doc(wc,id),c.has&&ro.w?{name:n,wish:w,p}:{name:n,wish:w,ts:serverTimestamp(),p},{merge:true});
+    ro.w=id;saveRooms();wmsg('บันทึกคำอธิษฐานแล้ว ✓',true);
+  }catch(x){console.error(x);wmsg('บันทึกไม่สำเร็จ ลองอีกครั้ง');}
+  b.disabled=false;
+};
+
+async function copy(t,b){
+  let ok=false;
+  try{await navigator.clipboard.writeText(t);ok=true;}
+  catch(e){const a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;opacity:0';rm.append(a);a.select();try{ok=document.execCommand('copy');}catch(e){}a.remove();}
+  const o=b.dataset.o||(b.dataset.o=b.textContent);
+  b.textContent=ok?'คัดลอกแล้ว ✓':'คัดลอกไม่สำเร็จ';setTimeout(()=>{b.textContent=o;},1600);
+}
+$('#cpl').onclick=e=>{if(cur)copy(roomUrl(cur.code),e.currentTarget);};
+$('#cpc').onclick=e=>{if(cur)copy(cur.code,e.currentTarget);};
+$('#rcard').onclick=()=>{if(cur)showShare({t:cur.t,name:cur.title,wish:cur.txt||`กระทงร่วม ${cur.n} คำอธิษฐาน`});};
+$('#rjoin').onclick=()=>{
+  if(!cur)return;const code=cur.code;leave();
+  $('#jc').value=code;$('#jp').value='';rerr('#jerr');view('vJ');$('#jp').focus();
+};
+$('#rleave').onclick=()=>{
+  if(cur){rooms[cur.code]={w:(rooms[cur.code]||{}).w};saveRooms();}
+  leave();$('#jc').value='';$('#jp').value='';rerr('#jerr');view('vJ');
+};
+
+const q0=new URLSearchParams(location.search).get('k');
+if(q0)openRoom(q0);
 </script>
 </body>
 </html>
