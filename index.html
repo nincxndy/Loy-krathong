@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#14143a">
-<title>Loy Krathong online</title>
+<title>ลอยกระทงออนไลน์</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
@@ -387,7 +387,7 @@ async function showShare(k){
   c.shadowColor='#ffb84a';c.shadowBlur=40;c.drawImage(img,W/2-150,540,300,300);c.shadowBlur=0;
   c.fillStyle='#fff';c.font='600 30px "IBM Plex Sans Thai",sans-serif';c.fillText(k.name,W/2,800);
   c.fillStyle='#f7eed9';c.font='400 21px "IBM Plex Sans Thai",sans-serif';wrap(c,'“'+k.wish+'”',W/2,838,440,30);
-  c.fillStyle='#f7eed999';c.font='400 15px "IBM Plex Sans Thai",sans-serif';c.fillText('Loykrathong online',W/2,930);
+  c.fillStyle='#f7eed999';c.font='400 15px "IBM Plex Sans Thai",sans-serif';c.fillText('Loykrathong dev:_nincandy',W/2,930);
 }
 const blob=()=>new Promise(r=>$('#cv').toBlob(r,'image/png'));
 $('#dl').onclick=async()=>{const a=document.createElement('a');a.href=URL.createObjectURL(await blob());a.download='loy-krathong.png';a.click();};
