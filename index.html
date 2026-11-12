@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#14143a">
-<title>ลอยกระทงออนไลน์</title>
+<title>Loy Krathong online</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Noto+Serif+Thai:wght@600;700&display=swap" rel="stylesheet">
@@ -162,8 +162,7 @@ legend{font-weight:500;font-size:14px;margin-bottom:8px}
 </div>
 
 <header id="bar">
-  <h1>Loykrathong online
-  <br/>Dev:_nincandy</h1>
+  <h1>Loykrathong online</h1>
   <p id="cnt" role="status"></p>
 </header>
 
@@ -354,7 +353,7 @@ function wrap(c,txt,x,y,mw,lh){
 async function showShare(k){
   sh.showModal();
   try{await Promise.all([
-    document.fonts.load('700 54px "Noto Serif Thai"','Loykrathong'),
+    document.fonts.load('700 54px "Noto Serif Thai"','Loy Krathong'),
     document.fonts.load('400 21px "IBM Plex Sans Thai"',k.name+k.wish+'Loykrathong online'),
     document.fonts.load('600 30px "IBM Plex Sans Thai"',k.name)]);}catch(e){}
   const cv=$('#cv'),c=cv.getContext('2d'),W=540,H=960;
@@ -381,20 +380,20 @@ async function showShare(k){
   c.save();c.filter='blur(8px)';g=c.createLinearGradient(0,570,0,H);g.addColorStop(0,'#f6eba8f2');g.addColorStop(.5,'#ecdf8a77');g.addColorStop(1,'#ecdf8a22');
   c.fillStyle=g;c.fillRect(MX-MR*.45,570,MR*.9,H-570);c.restore();
   c.textAlign='center';
-  c.fillStyle='#f5b83d';c.font='700 54px "Noto Serif Thai",serif';c.fillText('ลอยกระทง',W/2,80);
-  c.fillStyle='#f7eed9';c.font='400 20px "IBM Plex Sans Thai",sans-serif';c.fillText('Loy Krathong · 2569',W/2,114);
+  c.fillStyle='#f5b83d';c.font='700 54px "Noto Serif Thai",serif';c.fillText('Loy Krathong',W/2,80);
+  c.fillStyle='#f7eed9';c.font='400 20px "IBM Plex Sans Thai",sans-serif';c.fillText('Loy Krathong',W/2,114);
   const img=new Image();
   await new Promise(r=>{img.onload=r;img.onerror=r;img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(ks(k.t,300));});
   c.shadowColor='#ffb84a';c.shadowBlur=40;c.drawImage(img,W/2-150,540,300,300);c.shadowBlur=0;
   c.fillStyle='#fff';c.font='600 30px "IBM Plex Sans Thai",sans-serif';c.fillText(k.name,W/2,800);
   c.fillStyle='#f7eed9';c.font='400 21px "IBM Plex Sans Thai",sans-serif';wrap(c,'“'+k.wish+'”',W/2,838,440,30);
-  c.fillStyle='#f7eed999';c.font='400 15px "IBM Plex Sans Thai",sans-serif';c.fillText('ลอยกระทงออนไลน์',W/2,930);
+  c.fillStyle='#f7eed999';c.font='400 15px "IBM Plex Sans Thai",sans-serif';c.fillText('Loykrathong online',W/2,930);
 }
 const blob=()=>new Promise(r=>$('#cv').toBlob(r,'image/png'));
 $('#dl').onclick=async()=>{const a=document.createElement('a');a.href=URL.createObjectURL(await blob());a.download='loy-krathong.png';a.click();};
 $('#share').onclick=async()=>{
   const f=new File([await blob()],'loy-krathong.png',{type:'image/png'});
-  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'ลอยกระทง'});}catch(e){}}
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Loy Krathong'});}catch(e){}}
   else $('#dl').click();
 };
 $('#shX').onclick=()=>sh.close();
