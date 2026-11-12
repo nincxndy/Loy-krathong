@@ -162,7 +162,8 @@ legend{font-weight:500;font-size:14px;margin-bottom:8px}
 </div>
 
 <header id="bar">
-  <h1>ลอยกระทงออนไลน์</h1>
+  <h1>Loykrathong online</h1>
+  <h1>Dev:_nincandy</h1>
   <p id="cnt" role="status"></p>
 </header>
 
@@ -264,7 +265,7 @@ try{mine=new Set(JSON.parse(localStorage.getItem('krathong-mine')||'[]'));}catch
 const saveMine=()=>{try{localStorage.setItem('krathong-mine',JSON.stringify([...mine].slice(-30)));}catch(e){}};
 function cnt(){
   const n=document.querySelectorAll('.k').length;
-  $('#cnt').textContent=n?`กระทง ${n} ดวงบนผืนน้ำ`:'ผืนน้ำยังว่างอยู่';
+  $('#cnt').textContent=n?`กระทง ${n} ดวงบนผืนน้ำ`:'ไม่มีกระทง';
 }
 function addK(k,fresh,id){
   const e=document.createElement('button');e.type='button';e.className='k'+(fresh?' new':'');
@@ -328,7 +329,7 @@ $('#f').onsubmit=async e=>{
   const ref=doc(col);mine.add(ref.id);saveMine();
   try{await setDoc(ref,{...k,createdAt:serverTimestamp()});}
   catch(x){console.error(x);mine.delete(ref.id);saveMine();err('ลอยกระทงไม่สำเร็จ ตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง');go.disabled=false;go.textContent='ลอยกระทง';return;}
-  go.disabled=false;go.textContent='ลอยกระทง';
+  go.disabled=false;go.textContent='Loykrathong';
   mk.close();st.n='';st.w='';
   setTimeout(()=>showShare(k),2400);
 };
@@ -353,8 +354,8 @@ function wrap(c,txt,x,y,mw,lh){
 async function showShare(k){
   sh.showModal();
   try{await Promise.all([
-    document.fonts.load('700 54px "Noto Serif Thai"','ลอยกระทง'),
-    document.fonts.load('400 21px "IBM Plex Sans Thai"',k.name+k.wish+'ลอยกระทงออนไลน์'),
+    document.fonts.load('700 54px "Noto Serif Thai"','Loykrathong'),
+    document.fonts.load('400 21px "IBM Plex Sans Thai"',k.name+k.wish+'Loykrathong online'),
     document.fonts.load('600 30px "IBM Plex Sans Thai"',k.name)]);}catch(e){}
   const cv=$('#cv'),c=cv.getContext('2d'),W=540,H=960;
   c.clearRect(0,0,W,H);
